@@ -63,12 +63,40 @@ def clientthread(conn, addr, user):
 
 
 def broadcast(conn, msg, chat):
-    for client in chat:
+    if chat == "army_chat":
+        for client in army_chat:
             try:
                 client.send(msg.encode())
             except:
                 client.close()
                 socket_list.remove(client)
+                
+    if chat == "navy_chat":
+        for client in navy_chat:
+            try:
+                client.send(msg.encode())
+            except:
+                client.close()
+                socket_list.remove(client)
+                
+    if chat == "airforce_chat":
+        for client in airforce_chat:
+            try:
+                client.send(msg.encode())
+            except:
+                client.close()
+                socket_list.remove(client)
+                
+    if chat == "heads_chat":
+        for client in heads_chat:
+            try:
+                client.send(msg.encode())
+            except:
+                client.close()
+                socket_list.remove(client)
+                
+    else:
+        conn.send("Could not send your message!")
 
 
 if __name__ == "__main__":
