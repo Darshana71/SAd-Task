@@ -1,0 +1,58 @@
+# Dockerfile to save the server and client scripts
+
+# Giving the user complete access to the scripts in the directory
+sudo mkdir -p /root/server
+sudo chown -R $USER:$USER /root/server
+
+sudo mkdir -p /root/client
+sudo chown -R $USER:$USER /root/client
+
+
+# Creating files for server and client scripts
+sudo touch /root/server/Dockerfile
+sudo touch /root/client/Dockerfile
+
+
+
+# Run server script
+FROM python:latest
+ADD /root/server/server.py /chat
+WORKDIR /chat
+
+CMD ["python3", "server.py"]
+
+# Run client script
+FROM python:latest
+ADD /root/client/client.py /chat
+WORKDIR /chat
+
+CMD ["python3", "client.py"]
+
+
+
+
+
+# Docker compose
+sudo nano /root/docker-compose.yml
+
+# Writing inside the file
+
+version: "3.8"
+services: 
+
+    server:
+        build: server/
+        command: python3 ./server.py
+        ports:
+            - "1234:1234"
+
+    client:
+        build: client/
+        command: python3 ./client.py
+        network_mode: host
+        depends_on:
+            - server
+
+
+
+docker-compose up
