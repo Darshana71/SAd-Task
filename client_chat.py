@@ -18,7 +18,7 @@ s.setblocking(False)
 
 # Gets the username of the User
 name = os.environ.get('USERNAME')
-'''
+
 flag = 0
 if name == 'ArmyGeneral' or name == 'NavyMarshal' or name == 'AirForceChief':
     flag = 1
@@ -30,7 +30,7 @@ for i in range(1, 51):
 if flag == 0:
     print("You cannot access this chatroom!")
     sys.exit()
-'''
+
 # Sending the username of the client to the server
 s.send(name.encode())
 
